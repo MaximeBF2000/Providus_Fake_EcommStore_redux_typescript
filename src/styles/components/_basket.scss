@@ -1,0 +1,71 @@
+.imagePreview_background{
+  z-index: 101;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @extend .center;
+  background-color: rgba($black, .7);
+
+  .imagePreview_box{
+    width: fit-content;
+    height: fit-content;
+    max-width: 40%;
+    max-height: 95%;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.basketContainer{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 3rem;
+
+  .basketTotal_row{
+    @extend .center-h;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+
+}
+
+.basketItem{
+  position: relative;
+  display: flex;
+  background-color: $white;
+  color: $black;
+  margin-bottom: .5rem;
+  padding: 2rem;
+
+  .img{
+    cursor: pointer;
+    img{
+      height: 200px;
+      object-fit: contain;
+    }
+  }
+
+  .infos{
+    margin-left: 3rem;
+
+    .titlePrice_row{
+      justify-content: space-between;
+    }
+
+    .description{
+      margin-top: 1rem;
+      font-size: .8rem;
+    }
+
+    .rating{
+      position: absolute;
+      bottom: 3rem;
+    }
+  }
+
+}

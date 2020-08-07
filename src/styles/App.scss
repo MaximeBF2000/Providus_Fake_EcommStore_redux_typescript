@@ -1,0 +1,24 @@
+@import "./config";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $ff;
+  transition: all .3s;
+}
+
+a, button {
+  all: unset;
+  color: inherit;
+}
+
+body{
+  background: $bg-gradient;
+  color: $white;
+}
+
+@import "./components/navbar";
+@import "./components/product";
+@import "./components/bannerHeader";
+@import "./components/basket";

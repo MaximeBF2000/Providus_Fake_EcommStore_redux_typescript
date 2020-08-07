@@ -1,0 +1,11 @@
+.bannerHeader{
+  width: 100%;
+  height: 300px;
+
+  .bannerImg{
+    width: 100%;
+    height: 100%;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  }
+}
