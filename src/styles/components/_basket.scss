@@ -68,4 +68,15 @@
     }
   }
 
+  .removeBtn{
+    cursor: pointer;
+    background-color: #131921;
+    color: $white;
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    padding: .3rem 1rem;
+    border-radius: .25rem;
+  }
+
 }

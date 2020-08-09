@@ -37215,7 +37215,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   GET_PRODUCTS: "GET_PRODUCTS",
-  ADD_TO_CART: "ADD_TO_CART"
+  ADD_TO_CART: "ADD_TO_CART",
+  REMOVE_ITEM: "REMOVE_ITEM"
 };
 exports.default = _default;
 },{}],"node_modules/@babel/runtime/helpers/interopRequireDefault.js":[function(require,module,exports) {
@@ -58870,6 +58871,12 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _framerMotion = require("framer-motion");
 
+var _reactRedux = require("react-redux");
+
+var _actionTypes = _interopRequireDefault(require("../../stateManagement/actionTypes"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -58888,17 +58895,22 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function BasketItem(_ref) {
   var cartItem = _ref.cartItem;
-  var title = cartItem.title,
+  var uid = cartItem.uid,
+      title = cartItem.title,
       description = cartItem.description,
       price = cartItem.price,
       image = cartItem.image,
-      category = cartItem.category,
       rating = cartItem.rating;
 
   var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
       showImage = _useState2[0],
       setShowImage = _useState2[1];
+
+  var dispatch = (0, _reactRedux.useDispatch)();
+  var cart = (0, _reactRedux.useSelector)(function (state) {
+    return state.cart;
+  });
 
   var shortenStr = function shortenStr(str) {
     if (str.length >= 350) {
@@ -58911,6 +58923,16 @@ function BasketItem(_ref) {
   var toggleShowImage = function toggleShowImage() {
     return setShowImage(function (ps) {
       return !ps;
+    });
+  }; // PROBLEM HERE
+
+
+  var removeFromBasket = function removeFromBasket(id) {
+    dispatch({
+      type: _actionTypes.default.REMOVE_ITEM,
+      payload: cart.filter(function (item) {
+        return item.uid != id;
+      })
     });
   };
 
@@ -58968,9 +58990,14 @@ function BasketItem(_ref) {
       className: "product_ratingStar",
       key: i
     }, "\u2B50");
-  })))));
+  })), _react.default.createElement("button", {
+    className: "removeBtn",
+    onClick: function onClick() {
+      return removeFromBasket(uid);
+    }
+  }, "Remove"))));
 }
-},{"react":"node_modules/react/index.js","framer-motion":"node_modules/framer-motion/dist/framer-motion.es.js"}],"src/components/pages/BasketPage.tsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","framer-motion":"node_modules/framer-motion/dist/framer-motion.es.js","react-redux":"node_modules/react-redux/es/index.js","../../stateManagement/actionTypes":"src/stateManagement/actionTypes.ts"}],"src/components/pages/BasketPage.tsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -59174,6 +59201,11 @@ var AppReducer = function AppReducer() {
         products: payload
       });
 
+    case _actionTypes.default.REMOVE_ITEM:
+      return Object.assign(Object.assign({}, state), {
+        cart: payload
+      });
+
     case _actionTypes.default.ADD_TO_CART:
       return Object.assign(Object.assign({}, state), {
         cart: [].concat(_toConsumableArray(state.cart), [payload])
@@ -59239,7 +59271,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59533" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53430" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

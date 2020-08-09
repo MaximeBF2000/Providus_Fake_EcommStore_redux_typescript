@@ -219,5 +219,15 @@ body {
   position: absolute;
   bottom: 3rem;
 }
+.basketItem .removeBtn {
+  cursor: pointer;
+  background-color: #131921;
+  color: #fefefe;
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.3rem 1rem;
+  border-radius: 0.25rem;
+}
 
 /*# sourceMappingURL=/src.fc45d0fd.css.map */

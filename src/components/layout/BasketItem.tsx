@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { motion } from "framer-motion"
+import { useDispatch, useSelector } from "react-redux"
+import actions from '../../stateManagement/actionTypes'
 
 export default function BasketItem({ cartItem }: any) {
-  const { title, description, price, image, category, rating } = cartItem
+  const { uid, title, description, price, image, rating } = cartItem
   const [showImage, setShowImage] = useState(false)
+  const dispatch = useDispatch()
+  const cart = useSelector((state: any) => state.cart)
 
   const shortenStr = (str: string) => {
     if(str.length >= 350){
@@ -15,6 +19,11 @@ export default function BasketItem({ cartItem }: any) {
   }
 
   const toggleShowImage = (): void => setShowImage(ps => !ps)
+
+  // PROBLEM HERE
+  const removeFromBasket = (id: number): void => {
+    dispatch({ type: actions.REMOVE_ITEM, payload: cart.filter((item: any) => item.uid != id) })
+  }
 
   return (
     <>
@@ -53,6 +62,7 @@ export default function BasketItem({ cartItem }: any) {
               <span className="product_ratingStar" key={i}>⭐</span>
             ))}
           </div>
+          <button className="removeBtn" onClick={() => removeFromBasket(uid)}>Remove</button>
         </div>
       </div>
     </>

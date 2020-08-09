@@ -11,6 +11,8 @@ const AppReducer = (state: any = initialState, action: action) => {
   switch(type){
     case actions.GET_PRODUCTS:
       return { ...state, products: payload }
+    case actions.REMOVE_ITEM:
+      return { ...state, cart: payload }
     case actions.ADD_TO_CART:
       return { ...state, cart: [...state.cart, payload] }
     default:
